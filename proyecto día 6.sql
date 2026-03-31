@@ -1,0 +1,12 @@
+WITH analisis AS(SELECT serie_id,
+ COUNT(episodio_id) AS cantidad_de_episodios,
+ AVG(rating_imdb) AS rating_promedio
+ FROM episodios
+ GROUP BY serie_id)
+SELECT series.titulo, 
+analisis.cantidad_de_episodios, 
+analisis.rating_promedio
+ FROM series
+ JOIN analisis
+ON series.serie_id = analisis.serie_id
+ORDER BY rating_promedio DESC
